@@ -97,6 +97,42 @@ By structuring this explanation into a digital format, the application transform
 
 ---
 
+## Design Choices & Justifications
+
+### Technology Stack Selection
+
+**Flask & SQLite** were chosen as the primary technologies for ThinkDuck's development for the following reasons:
+
+#### Flask (Backend Framework)
+Flask was selected as the web framework because it aligns with the practical knowledge gained during CS50's 2025 curriculum. As a lightweight and flexible microframework, Flask provides an excellent balance between simplicity and functionality for building this application. It allowed me to:
+- Implement authentication and session management efficiently
+- Structure routes logically using blueprints
+- Focus on core business logic without unnecessary overhead
+- Leverage the skills directly learned in the course
+
+#### SQLite (Database)
+SQLite was chosen for data persistence because:
+- It was introduced in CS50's 2025 course, making it the natural choice for this project
+- As a file-based relational database, it requires minimal setup and no external server
+- It provides robust support for structured data relationships (users, projects, sessions, entries)
+- It's ideal for a personal productivity application where concurrent access isn't a primary concern
+- It simplifies deployment by eliminating database infrastructure dependencies
+
+### Architectural Decisions
+
+**Modular Structure**: The codebase is organized into separate modules (models, routes, utils) to promote maintainability and follow the MVC pattern. This separation allows for easier testing and future extensions.
+
+**Session-Based Authentication**: Flask's built-in session management was selected over JWT tokens because it's simpler to implement and sufficient for this application's single-user-per-session use case.
+
+### Trade-offs Made
+
+While other frameworks (Django, FastAPI) or databases (PostgreSQL, MongoDB) might offer additional features, the decision to use Flask and SQLite prioritizes:
+- **Learning consistency**: Using technologies learned in the course
+- **Simplicity over features**: Meeting project requirements without unnecessary complexity
+- **Rapid development**: Getting a functional MVP without extensive setup
+
+---
+
 ## Project Structure
 
 ```bash
