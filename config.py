@@ -1,0 +1,1 @@
+# App configurations - Secret key, database path, Flask settings

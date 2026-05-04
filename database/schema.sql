@@ -1,0 +1,1 @@
+-- Database schema - SQL table definitions for users, projects, sessions, and entries

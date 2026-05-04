@@ -1,0 +1,1 @@
+# Authentication routes - Handles login, register, and logout endpoints

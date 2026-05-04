@@ -1,0 +1,1 @@
+# Project routes - Handles project creation, listing, viewing, and deletion endpoints

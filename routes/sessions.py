@@ -1,0 +1,1 @@
+# Session routes - Handles session creation, viewing, editing, deletion, and search endpoints

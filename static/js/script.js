@@ -1,0 +1,1 @@
+// Client-side JavaScript - Interactive features, form validation, dynamic content

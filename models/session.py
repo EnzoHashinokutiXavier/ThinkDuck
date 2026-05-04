@@ -1,0 +1,1 @@
+# Session model - Represents a debug session with title, status, dates, and entries

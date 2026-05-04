@@ -1,0 +1,1 @@
+# User model - Represents user entity with methods for registration, login, password hashing

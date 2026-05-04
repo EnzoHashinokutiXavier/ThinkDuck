@@ -1,0 +1,1 @@
+# Project model - Represents a project entity with CRUD operations and relationships to sessions

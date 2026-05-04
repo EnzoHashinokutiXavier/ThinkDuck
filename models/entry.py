@@ -1,0 +1,1 @@
+# Entry model - Represents a structured note (problem, hypothesis, test, solution)
