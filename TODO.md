@@ -8,7 +8,7 @@ Search → Buscar sessions por keywords
 Refinamentos → Edição, deleção, UI
 
 Database:
-- [ ] schema.sql com CREATE TABLE para users, projects, sessions, entries
+- [x] schema.sql com CREATE TABLE para users, projects, sessions, entries
 - [ ] database.py com funções de conexão
 
 User Model (models/user.py):
