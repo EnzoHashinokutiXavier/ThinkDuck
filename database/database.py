@@ -1,21 +1,46 @@
-# importar modulo sqlite3
-# os para gerenciar caminhos de arquivo
+import sqlite3
+import os
+import logging
 
-# Configurar caminho do banco de dados
-# definir constante com o caminho do arquivo database.db
-# caminho relativo para portabilidade
+
+# definir constante com o caminho relativo do arquivo database.db
+DB_PATH = os.path.join(os.path.dirname(__file__), 'database.db')
 
 # Funçao de inicialização 
-# conectar ao banco
-# ler o arquivo schema.sql
-# executar script para criar as tabelas
-# fechar conexao
+def init_db():
+    #Inicializa o banco e cria tabelas a partir do schema.sql
+    schema_path = os.path.join(os.path.dirname(__file__), 'schema.sql') # pega a pasta desse arquivo e procura 'schema.sql'
+    if not os.path.exists(schema_path): # Verifica se schema.sql existe
+        raise FileNotFoundError(f"schema.sql não encontrado em {schema_path}")
+    with sqlite3.connect(DB_PATH) as conn: # conecta ao banco de dados como 'conn'
+        with open(schema_path, 'r') as file: # abre schema para leitura como 'file'
+            conn.executescript(file.read()) # executa script lido
 
 # Funçao de conexao reutilizavel
-# Retorna uma conexão ao banco 
-# Configura row_factory para retornar resultados como dicionários
+# conectar ao banco
+def get_db():
+    conn = sqlite3.connect(DB_PATH)
+    # Configura row_factory para retornar resultados como dicionários
+    conn.row_factory = sqlite3.Row 
+    # Retorna uma conexão ao banco 
+    return conn
 
 # Funções auxiliares para operações comuns
-# SELECT/INSERT/UPDATE/DELETE
-# Pense em como capturar o lastrowid para INSERTs
-# Use ? como placeholder nas queries para evitar SQL injection!
+def execute_query(query, params=None, fetch=False):
+    conn = get_db()
+    try:
+        cursor = conn.cursor()
+        cursor.execute(query, params or ())
+        if fetch:
+            return cursor.fetchall()
+        else:
+            conn.commit()
+            return cursor.lastrowid
+    finally:
+        conn.close()
+
+# operaçoes para 4 entidades principais : 
+# Usuários: criar, buscar por ID, buscar por username, validar senha
+# Projetos: criar, listar por usuário, buscar por ID, deletar
+# Sessões: criar, listar por projeto, buscar por ID, atualizar status
+# Entradas: criar, listar por sessão, buscar por ID
