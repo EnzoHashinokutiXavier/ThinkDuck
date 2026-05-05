@@ -9,7 +9,8 @@ Refinamentos → Edição, deleção, UI
 
 Database:
 - [x] schema.sql com CREATE TABLE para users, projects, sessions, entries
-- [ ] database.py com funções de conexão
+- [x] database.py com funções de conexão
+- [ ] operaçoes para 4 entidades principais 
 
 User Model (models/user.py):
 - [ ] Classe User com métodos
