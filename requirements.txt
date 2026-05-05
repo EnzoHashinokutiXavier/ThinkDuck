@@ -1,1 +1,3 @@
 # Project dependencies - List of Python packages needed (Flask, etc.)
+Flask
+Flask-Session

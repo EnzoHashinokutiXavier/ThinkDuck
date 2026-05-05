@@ -1,1 +1,12 @@
 <!-- Home page - Landing page with welcome message and links to login/register -->
+ {% extends "layout.html" %}
+
+{% block corpo %}
+        
+    {% if name %}
+        Voce esta logado como {{ name }}. <a href="/logout">Log Out</a>
+    {% else %}
+        Voce nao esta logado. <a href="/login">Log In</a>
+    {% endif %}
+
+{% endblock %}

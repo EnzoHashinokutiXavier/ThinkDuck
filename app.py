@@ -1,4 +1,5 @@
-# Main Flask application - Initialize Flask app, configure routes, and run the serverfrom flask import Flask
+# Main Flask application - Initialize Flask app, configure routes, and run the server
+from flask import Flask
 from flask_session import Session
 from routes.auth import auth_bp
 from routes.projects import projects_bp
