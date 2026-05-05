@@ -65,7 +65,7 @@ Each session is divided into:
 ## Tech Stack
 
 - **Backend:** Python (Flask)
-- **Frontend:** HTML, CSS
+- **Frontend:** HTML, CSS, **Jinja 2 (Template Engine)**
 - **Database:** SQLite
 - **Authentication:** Flask sessions
 
@@ -124,12 +124,29 @@ SQLite was chosen for data persistence because:
 
 **Session-Based Authentication**: Flask's built-in session management was selected over JWT tokens because it's simpler to implement and sufficient for this application's single-user-per-session use case.
 
+#### Jinja 2 (Template Engine)
+
+Jinja 2 was selected as the template engine because:
+- It's the standard template engine for Flask applications
+- It was taught in CS50's 2025 curriculum, providing consistency with course materials
+- It provides a clean separation between backend logic and frontend presentation
+- It supports template inheritance and reusability through `{% extends %}` and `{% include %}`
+- It includes built-in security features like automatic HTML escaping to prevent XSS attacks
+- It offers powerful features like filters (`|upper`, `|length`, etc.) and control structures (`if`, `for`, `while`)
+
+**Usage pattern in ThinkDuck:**
+- All templates extend from `layout.html` (base template) for consistent UI structure
+- Dynamic data is passed from Flask routes using `render_template()`
+- Variables are safely rendered in HTML using `{{ variable }}` syntax
+- URLs are generated dynamically using `{{ url_for('route_name') }}` instead of hardcoded paths
+
 ### Trade-offs Made
 
-While other frameworks (Django, FastAPI) or databases (PostgreSQL, MongoDB) might offer additional features, the decision to use Flask and SQLite prioritizes:
+While other frameworks (Django, FastAPI) or databases (PostgreSQL, MongoDB) might offer additional features, the decision to use Flask, SQLite, and Jinja 2 prioritizes:
 - **Learning consistency**: Using technologies learned in the course
 - **Simplicity over features**: Meeting project requirements without unnecessary complexity
 - **Rapid development**: Getting a functional MVP without extensive setup
+- **Security**: Built-in protection against common vulnerabilities (XSS through automatic escaping)
 
 ---
 
