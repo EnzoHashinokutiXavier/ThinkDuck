@@ -11,10 +11,18 @@ Database:
 - [ ] schema.sql com CREATE TABLE para users, projects, sessions, entries
 - [ ] database.py com funções de conexão
 
+User Model (models/user.py):
+- [ ] Classe User com métodos
+- [ ] register(username, password)
+- [ ] verify_password(password)
+- [ ] get_by_username(username)
+
 Auth:
 - [ ] Hashing de senhas (werkzeug.security)
-- [ ] Rotas: /register, /login, /logout
-- [ ] Decorator @login_required
+- [ ] @login_required decorator (utils/decorators.py)
+- [ ] /register: validar, hash, salvar em DB
+- [ ] /login: buscar user, validar senha, criar sessão
+- [x] /logout
 
 Projects:
 - [ ] POST /projects (criar)
@@ -29,3 +37,13 @@ Sessions:
 
 Search:
 - [ ] GET /search?q=keyword
+
+Templates:
+- [ ] login.html: adicionar campo password
+- [ ] register.html: adicionar campo password
+- [ ] Adicionar mensagens de erro
+
+Config (config.py):
+- [ ] SECRET_KEY
+- [ ] DATABASE_PATH
+
