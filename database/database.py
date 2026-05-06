@@ -99,22 +99,26 @@ def delete_project(project_id):
 # Create session
 def create_session(project_id, title):
     # Create session within a project, remember that session starts with status = 'open'
-    return
+    query = "INSERT INTO sessions (project_id, title) VALUES (?, ?)"
+    return execute_query(query, (project_id, title))
 
 # List sessions
 def get_sessions_by_project(project_id):
     # List all sessions of a project
-    return
+    query = "SELECT * FROM sessions WHERE project_id = ?"
+    return execute_query(query, (project_id,), fetch = True)
 
 # Search session
 def get_session_by_id(session_id):
     # Search specific session
-    return
+    query = "SELECT * FROM sessions WHERE id = ?"
+    return execute_query(query, (session_id,), fetch = True)
 
 # Update status
 def update_session_status(session_id, status):
     # Updates status open -> resolved
-    return
+    query = "UPDATE sessions SET status = ? WHERE id = ?"
+    return execute_query(query, (status, session_id))
 
 # Entries: create, list by session, search by ID
 
