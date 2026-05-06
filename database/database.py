@@ -125,14 +125,17 @@ def update_session_status(session_id, status):
 # Create entry
 def create_entry(session_id, entry_type, content):
     # Creates entry (type: problem, hypothesis, test, solution)
-    return
+    query = "INSERT INTO entries (session_id, type, content) VALUES (?, ?, ?)"
+    return execute_query(query, (session_id, entry_type, content))
 
 # List entries
 def get_entries_by_session(session_id):
     # Lists all entries of a session
-    return
+    query = "SELECT * FROM entries WHERE session_id = ?"
+    return execute_query(query, (session_id,), fetch = True)
 
 # Search entry
 def get_entry_by_id(entry_id):
     # Search specific entry
-    return
+    query = "SELECT * FROM entries WHERE id = ?"
+    return execute_query(query, (entry_id,), fetch = True)
