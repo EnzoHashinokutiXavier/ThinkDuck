@@ -1,30 +1,29 @@
 import sqlite3
 import os
 
-# definir constante com o caminho relativo do arquivo database.db
+# Define constant with relative path to database.db file
 DB_PATH = os.path.join(os.path.dirname(__file__), 'database.db')
 
-# Funçao de inicialização 
+# Database initialization function
 def init_db():
-    #Inicializa o banco e cria tabelas a partir do schema.sql
-    schema_path = os.path.join(os.path.dirname(__file__), 'schema.sql') # pega a pasta desse arquivo e procura 'schema.sql'
-    if not os.path.exists(schema_path): # Verifica se schema.sql existe
-        raise FileNotFoundError(f"schema.sql não encontrado em {schema_path}")
-    with sqlite3.connect(DB_PATH) as conn: # conecta ao banco de dados como 'conn'
-        with open(schema_path, 'r') as file: # abre schema para leitura como 'file'
-            conn.executescript(file.read()) # executa script lido
+    # Initializes database and creates tables from schema.sql
+    schema_path = os.path.join(os.path.dirname(__file__), 'schema.sql') # Gets directory of this file and looks for 'schema.sql'
+    if not os.path.exists(schema_path): # Checks if schema.sql exists
+        raise FileNotFoundError(f"schema.sql not found in {schema_path}")
+    with sqlite3.connect(DB_PATH) as conn: # Connects to database as 'conn'
+        with open(schema_path, 'r') as file: # Opens schema for reading as 'file'
+            conn.executescript(file.read()) # Executes read script
 
-# Funçao de conexao reutilizavel
-# conectar ao banco
+# Reusable connection function
 def get_db():
     conn = sqlite3.connect(DB_PATH)
-    # Configura row_factory para retornar resultados como dicionários
-    conn.row_factory = sqlite3.Row 
-    # Retorna uma conexão ao banco 
+    # Configures row_factory to return results as dictionaries
+    conn.row_factory = sqlite3.Row
+    # Returns a database connection
     return conn
 
-# Funções auxiliares para operações comuns
-def execute_query(query, params=None, fetch=False): # fetch = true quando precisar retornar dados
+# Helper function for common operations
+def execute_query(query, params=None, fetch=False): # fetch = true when needing to return data
     conn = get_db()
     try:
         cursor = conn.cursor()
@@ -38,88 +37,94 @@ def execute_query(query, params=None, fetch=False): # fetch = true quando precis
         conn.close()
 
 
-# operaçoes para 4 entidades principais : 
-# parametro ? para evitar sql injection
+# Operations for 4 main entities
+# Use ? parameter to prevent SQL injection
 
-# Usuários: criar, buscar por ID, buscar por username, validar senha
+# Users: create, search by ID, search by username, validate password
 
-# Criar usuario
+# Create user
 def create_user(username, password_hash):
-    # usar INSERT e  capturar o ID retornado (lastrowid)
-    return
-    
-# Buscar por id
+    # Use INSERT and capture returned ID (lastrowid)
+    query = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
+    return execute_query(query, (username, password_hash))
+
+# Search by ID
 def get_user_by_id(user_id):
-    # usar SELECT com WHERE, fetch = true
-    return
+    # Use SELECT with WHERE, fetch = true
+    query = "SELECT * FROM users WHERE id = ?"
+    return execute_query(query, (user_id,), fetch = True)
 
-# Buscar usuario por username
+# Search user by username
 def get_user_by_username(username):
-    # filtrar por username
-    return
+    # Filter by username
+    query = "SELECT * FROM users WHERE username = ?"
+    return execute_query(query, (username,), fetch = True)
 
-# Validar senha
+# Validate password
 def validate_password(user_id, password_hash):
-    # buscar user_id, compara o password_hash
-    return
+    # Find user_id, compare password_hash
+    user = get_user_by_id(user_id)
+    if user and len(user) > 0:
+        return user[0]['password_hash'] == password_hash
+    return False
 
-# Projetos: criar, listar por usuário, buscar por ID, deletar
+# Projects: create, list by user, search by ID, delete
 
-# Criar projeto
+# Create project
 def create_project(user_id, name):
-    # cria um novo projeto vinculado com o usuario
+    # Creates a new project linked to the user
     return
 
-# Listar projetos
+# List projects
 def get_projects_by_user(user_id):
-    # lista todos projetos do usuario
+    # Lists all user projects
     return
 
-# Buscar projetos
+# Search projects
 def get_project_by_id(project_id):
-    # Busca um projeto específico
+    # Search a specific project
     return
 
-# Deletar projeto
+# Delete project
 def delete_project(project_id):
-    # Deleta um projeto
+    # Deletes a project
     return
 
-# Sessões: criar, listar por projeto, buscar por ID, atualizar status
+# Sessions: create, list by project, search by ID, update status
 
-# Criar sessao
+# Create session
 def create_session(project_id, title):
-    # Criar sessao dentro de um projeto, nao esqueça que sessao começa com status = 'open'
+    # Create session within a project, remember that session starts with status = 'open'
     return
 
-# Listar sessoes
+# List sessions
 def get_sessions_by_project(project_id):
-    # Listar todas as sessoes de um projeto
+    # List all sessions of a project
     return
 
-# Buscar sessao
+# Search session
 def get_session_by_id(session_id):
-    # Busca sessao especifica
+    # Search specific session
     return
 
-# Atualizar status
+# Update status
 def update_session_status(session_id, status):
-    # atualiza status open -> resolved
+    # Updates status open -> resolved
     return
 
-# Entradas: criar, listar por sessão, buscar por ID
+# Entries: create, list by session, search by ID
 
-# Criar entrada
+# Create entry
 def create_entry(session_id, entry_type, content):
-    # Cria entrada (type: problem, hypothesis, test, solution)
+    # Creates entry (type: problem, hypothesis, test, solution)
     return
 
-# Listar entradas
+# List entries
 def get_entries_by_session(session_id):
-    # Lista todas as entradas de uma sessao
+    # Lists all entries of a session
     return
 
-# Buscar sessao
+# Search entry
 def get_entry_by_id(entry_id):
-    # Busca entrada específica 
+    # Search specific entry
     return
