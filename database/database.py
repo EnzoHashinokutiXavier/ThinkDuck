@@ -73,22 +73,26 @@ def validate_password(user_id, password_hash):
 # Create project
 def create_project(user_id, name):
     # Creates a new project linked to the user
-    return
+    query = "INSERT INTO projects (user_id, name) VALUES (?, ?)"
+    return execute_query(query, (user_id, name))
 
 # List projects
 def get_projects_by_user(user_id):
     # Lists all user projects
-    return
+    query = "SELECT * FROM projects WHERE user_id = ?"
+    return execute_query(query, (user_id,), fetch = True)
 
 # Search projects
 def get_project_by_id(project_id):
     # Search a specific project
-    return
+    query = "SELECT * FROM projects WHERE id = ?"
+    return execute_query(query, (project_id,), fetch = True)
 
 # Delete project
 def delete_project(project_id):
     # Deletes a project
-    return
+    query = "DELETE FROM projects WHERE id = ?"
+    return execute_query(query, (project_id,))
 
 # Sessions: create, list by project, search by ID, update status
 
