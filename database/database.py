@@ -114,11 +114,17 @@ def get_session_by_id(session_id):
     query = "SELECT * FROM sessions WHERE id = ?"
     return execute_query(query, (session_id,), fetch = True)
 
+# Search session by keyword
+    # Search sessions by title containing keyword
+
 # Update status
 def update_session_status(session_id, status):
-    # Updates status open -> resolved
+    # Updates status open -> resolved and "updated_at"
     query = "UPDATE sessions SET status = ? WHERE id = ?"
     return execute_query(query, (status, session_id))
+
+# Delete session
+    # Delete specific session
 
 # Entries: create, list by session, search by ID
 
@@ -139,3 +145,9 @@ def get_entry_by_id(entry_id):
     # Search specific entry
     query = "SELECT * FROM entries WHERE id = ?"
     return execute_query(query, (entry_id,), fetch = True)
+
+# Update entry content
+    # Update "content" and "updated_at"
+
+# Delete entry
+    # Delete specific entry
