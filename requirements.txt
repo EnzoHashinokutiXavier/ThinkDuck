@@ -1,3 +1,4 @@
-# Project dependencies - List of Python packages needed (Flask, etc.)
-Flask
-Flask-Session
+# Project dependencies - List of Python packages needed for CS50 Final Project
+Flask==2.3.3
+Flask-Session==0.5.0
+Werkzeug==2.3.7
