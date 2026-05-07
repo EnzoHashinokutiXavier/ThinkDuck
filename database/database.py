@@ -1,5 +1,6 @@
 import sqlite3
 import os
+from werkzeug.security import check_password_hash
 
 # Define constant with relative path to database.db file
 DB_PATH = os.path.join(os.path.dirname(__file__), 'database.db')
@@ -61,12 +62,18 @@ def get_user_by_username(username):
     return execute_query(query, (username,), fetch = True)
 
 # Validate password
-def validate_password(user_id, password_hash):
-    # Find user_id, compare password_hash
-    user = get_user_by_id(user_id)
-    if user and len(user) > 0:
-        return user[0]['password_hash'] == password_hash
-    return False
+def validate_password(user_id, provided_password):
+    # Retrieve user and compare provided password with stored hash
+    try:
+        user = get_user_by_id(user_id)
+        if not user:
+            return False
+        stored_hash = user[0]['password_hash']
+        if not stored_hash:
+            return False
+        return check_password_hash(stored_hash, provided_password)
+    except Exception:
+        return False
 
 # Projects: create, list by user, search by ID, delete
 
