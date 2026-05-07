@@ -115,16 +115,22 @@ def get_session_by_id(session_id):
     return execute_query(query, (session_id,), fetch = True)
 
 # Search session by keyword
-    # Search sessions by title containing keyword
+def get_session_by_keyword(user_id, keyword):
+    # Search sessions from projects from the user where title have the keyword
+    query = "SELECT sessions.* FROM sessions JOIN projects ON sessions.project_id = projects.id WHERE projects.user_id = ? AND sessions.title LIKE ?"
+    return execute_query(query, (user_id, f'%{keyword}%'), fetch = True) # cant use '%?%' because sqlite3 would search for "?"
 
 # Update status
 def update_session_status(session_id, status):
     # Updates status open -> resolved and "updated_at"
-    query = "UPDATE sessions SET status = ? WHERE id = ?"
+    query = "UPDATE sessions SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?"
     return execute_query(query, (status, session_id))
 
 # Delete session
+def delete_session(session_id):
     # Delete specific session
+    query = "DELETE FROM sessions WHERE id = ?"
+    return execute_query(query, (session_id,))
 
 # Entries: create, list by session, search by ID
 
@@ -147,7 +153,13 @@ def get_entry_by_id(entry_id):
     return execute_query(query, (entry_id,), fetch = True)
 
 # Update entry content
+def update_entry_content(entry_id, content):
     # Update "content" and "updated_at"
+    query = "UPDATE entries SET content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?"
+    return execute_query(query, (content, entry_id))
 
 # Delete entry
+def delete_entry(entry_id):
     # Delete specific entry
+    query = "DELETE FROM entries WHERE id = ?"
+    return execute_query(query, (entry_id,))
