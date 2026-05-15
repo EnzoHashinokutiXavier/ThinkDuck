@@ -48,3 +48,4 @@ Config (config.py):
 - [ ] SECRET_KEY
 - [ ] DATABASE_PATH
 
+(In production set secret_key, debug = false, add database directory)
