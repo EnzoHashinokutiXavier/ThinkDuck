@@ -1,7 +1,7 @@
 # User model - Represents user entity with methods for registration, login, password hashing
 
-from werkzeug.security import generate_password_hash, check_password_hash
-from database.database import create_user, get_user_by_username
+from werkzeug.security import generate_password_hash
+from database.database import create_user, get_user_by_username, validate_password
 
 class User:
 
@@ -14,18 +14,21 @@ class User:
     # Register new user
     @staticmethod
     def register(username, password):
-        # hash the password with generate_assword_hash
-        # create_user from database.py
-        return # return new user id
+        password_hash = generate_password_hash(password) # hash the password with generate_password_hash
+        user_id = create_user(username, password_hash) # create_user from database.py
+        return user_id # return new user id
 
     # Search user by username
     @staticmethod
     def get_by_username(username):
-        # get_user_by_username
-        return # returns user data or none
-
+        result = get_user_by_username(username) # get_user_by_username
+        # returns user data or none
+        if result:
+            user_data = result[0]
+            return User(user_data['id'], user_data['username'], user_data['password_hash'])
+        return None
+    
     # Verify if password is correct
-    def verify_password(password):
-        # compare password with hash stored
-        # use check_password_hash
-        return # returns true or false
+    def verify_password(self, password):
+        # use validate_password from database.py
+        return validate_password(self.id, password)
